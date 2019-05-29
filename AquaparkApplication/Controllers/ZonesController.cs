@@ -21,7 +21,7 @@ namespace AquaparkApplication.Controllers
 
         [AcceptVerbs("POST")]
         [ActionName("AddZonesWithTickets")]
-        public IEnumerable<ZoneWithTicketsDto> AddZonesWithTickets(ZoneWithTicketsCollectionDto zoneWithTicketsCollectionDto)
+        public IEnumerable<ZoneWithTicketsDto> AddZonesWithTickets([FromBody]ZoneWithTicketsCollectionDto zoneWithTicketsCollectionDto)
         {
             var zonesWithTickets = zoneWithTicketsCollectionDto.ZonesWithTicketsDto;
 

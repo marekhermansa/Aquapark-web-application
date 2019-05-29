@@ -23,7 +23,7 @@ namespace AquaparkApplication.Controllers
 
         [AcceptVerbs("POST")]
         [ActionName("ComeInToZone")]
-        public InformationAfterComingIntoZoneDto ComeInToZone(ZoneEntry zoneEntry)
+        public InformationAfterComingIntoZoneDto ComeInToZone([FromBody]ZoneEntry zoneEntry)
         {
             InformationAfterComingIntoZoneDto result = new InformationAfterComingIntoZoneDto()
             {
@@ -112,7 +112,7 @@ namespace AquaparkApplication.Controllers
 
         [AcceptVerbs("POST")]
         [ActionName("ComeOutOfZone")]
-        public InformationAfterComingOutOfZoneDto ComeOutOfZone(ZoneEntry zoneEntry)
+        public InformationAfterComingOutOfZoneDto ComeOutOfZone([FromBody]ZoneEntry zoneEntry)
         {
             InformationAfterComingOutOfZoneDto result = new InformationAfterComingOutOfZoneDto()
             {
@@ -194,7 +194,7 @@ namespace AquaparkApplication.Controllers
 
         [AcceptVerbs("POST")]
         [ActionName("ComeInToAttraction")]
-        public void ComeInToAttraction(AttractionEntry attractionEntry)
+        public void ComeInToAttraction([FromBody]AttractionEntry attractionEntry)
         {
             InformationAfterComingIntoZoneDto result = new InformationAfterComingIntoZoneDto()
             {

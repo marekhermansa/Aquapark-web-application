@@ -13,11 +13,11 @@
 
   <ItemGroup>
     <None Include="wwwroot\static\css\2.536f1d1e.chunk.css.map" />
-    <None Include="wwwroot\static\css\main.0a1ca17a.chunk.css.map" />
+    <None Include="wwwroot\static\css\main.492bf911.chunk.css.map" />
     <None Include="wwwroot\static\js\2.631d9767.chunk.js" />
     <None Include="wwwroot\static\js\2.631d9767.chunk.js.map" />
-    <None Include="wwwroot\static\js\main.13062e04.chunk.js" />
-    <None Include="wwwroot\static\js\main.13062e04.chunk.js.map" />
+    <None Include="wwwroot\static\js\main.a46a7482.chunk.js" />
+    <None Include="wwwroot\static\js\main.a46a7482.chunk.js.map" />
     <None Include="wwwroot\static\js\runtime~main.a8a9905a.js" />
     <None Include="wwwroot\static\js\runtime~main.a8a9905a.js.map" />
   </ItemGroup>

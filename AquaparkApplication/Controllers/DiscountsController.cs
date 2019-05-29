@@ -21,7 +21,7 @@ namespace AquaparkApplication.Controllers
 
         [AcceptVerbs("POST")]
         [ActionName("AddSocialClassDiscounts")]
-        public IEnumerable<SocialClassDiscountDto> AddSocialClassDiscounts(SocialClassDiscountCollectionDto socialClassDiscountCollectionDto)
+        public IEnumerable<SocialClassDiscountDto> AddSocialClassDiscounts([FromBody]SocialClassDiscountCollectionDto socialClassDiscountCollectionDto)
         {
             var socialClassDiscounts = socialClassDiscountCollectionDto.SocialClassDiscounts;
 
@@ -108,7 +108,7 @@ namespace AquaparkApplication.Controllers
 
         [AcceptVerbs("POST")]
         [ActionName("AddPeriodicDiscounts")]
-        public IEnumerable<PeriodicDiscountDto> AddPeriodicDiscounts(PeriodicDiscountCollectionDto periodicDiscountCollectionDto)
+        public IEnumerable<PeriodicDiscountDto> AddPeriodicDiscounts([FromBody]PeriodicDiscountCollectionDto periodicDiscountCollectionDto)
         {
             var periodicDiscounts = periodicDiscountCollectionDto.PeriodicDiscounts;
 

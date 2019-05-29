@@ -23,7 +23,7 @@ namespace AquaparkApplication.Controllers
 
         [AcceptVerbs("POST")]
         [ActionName("SendNewsletter")]
-        public ResultInfoDto SendNewsletter(EmailPassedParameters emailPassedParameters)
+        public ResultInfoDto SendNewsletter([FromBody]EmailPassedParameters emailPassedParameters)
         {
             string status = "";
             bool success = false;

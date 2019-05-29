@@ -23,7 +23,7 @@ namespace AquaparkApplication.Controllers
 
         [AcceptVerbs("POST")]
         [ActionName("MakeNewOrder")]
-        public OrderDto MakeNewOrder(NewOrder newOrder)
+        public OrderDto MakeNewOrder([FromBody]NewOrder newOrder)
         {
             bool success = false;
             string status = "Wrong token";
@@ -42,7 +42,7 @@ namespace AquaparkApplication.Controllers
                     if (newOrder.UserToken != string.Empty)
                     {
                         userId = AquaparkSystemApi.Security.Security.UserTokens.FirstOrDefault(i => i.Value == newOrder.UserToken).Key;
-                        user = _dbContext.Users.FirstOrDefault(i => i.Id == userId);
+                        user = _dbContext.Users.Include(i=> i.Orders).FirstOrDefault(i => i.Id == userId);
                         if (user == null)
                             throw new UserNotFoundException("There is no user with given data.");
                     }

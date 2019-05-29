@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AquaparkApplication.Models
 {
@@ -9,6 +10,7 @@ namespace AquaparkApplication.Models
         {
             Positions = new HashSet<Position>();
         }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public DateTime DateOfOrder { get; set; }
         public ICollection<Position> Positions { get; set; }

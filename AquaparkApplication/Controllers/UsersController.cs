@@ -59,7 +59,7 @@ namespace AquaparkApplication.Controllers
 
         [AcceptVerbs("POST")]
         [ActionName("LogIn")]
-        public UserLoggedInDto LogIn(UserToLogIn userToLogIn)
+        public UserLoggedInDto LogIn([FromBody]UserToLogIn userToLogIn)
         {
             string userToken = "";
             string email = "";
@@ -125,7 +125,7 @@ namespace AquaparkApplication.Controllers
 
         [AcceptVerbs("POST")]
         [ActionName("LogOut")]
-        public UserLoggedOutDto LogOut(TokenOfUser user)
+        public UserLoggedOutDto LogOut([FromBody]TokenOfUser user)
         {
             bool success = false;
             string statusMessage = "";
@@ -154,7 +154,7 @@ namespace AquaparkApplication.Controllers
 
         [AcceptVerbs("POST")]
         [ActionName("EditUser")]
-        public UserEditedPersonalDataDto EditUser(UserToEditPersonalData editedUser)
+        public UserEditedPersonalDataDto EditUser([FromBody]UserToEditPersonalData editedUser)
         {
             string userToken = "";
             string name = "";
