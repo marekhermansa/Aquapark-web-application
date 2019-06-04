@@ -3,7 +3,6 @@ using System;
 using AquaparkApplication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AquaparkApplication.Migrations
@@ -15,15 +14,12 @@ namespace AquaparkApplication.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085");
 
             modelBuilder.Entity("AquaparkApplication.Models.Attraction", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<double>("MaxAmountOfPeople");
 
@@ -59,8 +55,7 @@ namespace AquaparkApplication.Migrations
             modelBuilder.Entity("AquaparkApplication.Models.AttractionHistory", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("AttractionId");
 
@@ -82,8 +77,7 @@ namespace AquaparkApplication.Migrations
             modelBuilder.Entity("AquaparkApplication.Models.Order", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateOfOrder");
 
@@ -103,8 +97,7 @@ namespace AquaparkApplication.Migrations
             modelBuilder.Entity("AquaparkApplication.Models.PeriodicDiscount", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("FinishTime");
 
@@ -124,8 +117,7 @@ namespace AquaparkApplication.Migrations
             modelBuilder.Entity("AquaparkApplication.Models.Position", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("CanBeUsed");
 
@@ -153,8 +145,7 @@ namespace AquaparkApplication.Migrations
             modelBuilder.Entity("AquaparkApplication.Models.SocialClassDiscount", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("SocialClassName")
                         .HasMaxLength(30);
@@ -177,8 +168,7 @@ namespace AquaparkApplication.Migrations
             modelBuilder.Entity("AquaparkApplication.Models.Ticket", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("Days");
 
@@ -218,8 +208,7 @@ namespace AquaparkApplication.Migrations
             modelBuilder.Entity("AquaparkApplication.Models.User", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Email")
                         .HasMaxLength(30);
@@ -245,8 +234,7 @@ namespace AquaparkApplication.Migrations
             modelBuilder.Entity("AquaparkApplication.Models.UserData", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Email")
                         .HasMaxLength(30);
@@ -265,8 +253,7 @@ namespace AquaparkApplication.Migrations
             modelBuilder.Entity("AquaparkApplication.Models.Zone", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<double>("MaxAmountOfPeople");
 
@@ -287,8 +274,7 @@ namespace AquaparkApplication.Migrations
             modelBuilder.Entity("AquaparkApplication.Models.ZoneHistory", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime?>("FinishTime");
 

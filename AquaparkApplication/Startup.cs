@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AquaparkApplication.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,7 +35,6 @@ namespace AquaparkApplication
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            //services.AddCors();
 
             services.AddCors(options =>
             {
@@ -44,20 +45,15 @@ namespace AquaparkApplication
             {
                 options.Filters.Add(new CorsAuthorizationFilterFactory("AllowMyOrigin"));
             });
-            //services.AddMvc(config =>
-            //    {
-            //        foreach (var formatter in config.InputFormatters)
-            //        {
-            //            if (formatter.GetType() == typeof(JsonInputFormatter))
-            //                ((JsonInputFormatter)formatter).SupportedMediaTypes.Add(
-            //                    Microsoft.Net.Http.Headers.MediaTypeHeaderValue.Parse("text/html"));
-            //        }
-            //    }
-            //);
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddDbContext<AquaparkDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+            
+            services.AddEntityFrameworkSqlite().AddDbContext<AquaparkDbContext>(options =>
+                options.UseSqlite(Configuration["ConnectionStrings:DefaultConnection"]));
+            //services.AddDbContext<AquaparkDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,10 +71,9 @@ namespace AquaparkApplication
 
 
             app.UseCors("AllowMyOrigin");
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -88,8 +83,19 @@ namespace AquaparkApplication
                     name: "api",
                     template: "api/{controller}/{action}");
             });
+
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<AquaparkDbContext>();
+                try
+                {
+                    context.Set<Zone>().Any();
+                }
+                catch (Exception)
+                {
+                    context.Database.Migrate();
+                }
+            }
         }
-
-
     }
 }

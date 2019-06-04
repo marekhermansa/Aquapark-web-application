@@ -1,10 +1,9 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AquaparkApplication.Migrations
 {
-    public partial class InitMigrationWithSomeSeedData : Migration
+    public partial class InitMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +12,7 @@ namespace AquaparkApplication.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     StartTime = table.Column<DateTime>(nullable: false),
                     FinishTime = table.Column<DateTime>(nullable: false),
                     Value = table.Column<decimal>(nullable: false)
@@ -28,7 +27,7 @@ namespace AquaparkApplication.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Value = table.Column<decimal>(nullable: false),
                     SocialClassName = table.Column<string>(maxLength: 30, nullable: true)
                 },
@@ -42,7 +41,7 @@ namespace AquaparkApplication.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Email = table.Column<string>(maxLength: 30, nullable: true),
                     Password = table.Column<string>(maxLength: 40, nullable: true),
                     UserGuid = table.Column<Guid>(nullable: false),
@@ -60,7 +59,7 @@ namespace AquaparkApplication.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Email = table.Column<string>(maxLength: 30, nullable: true),
                     Name = table.Column<string>(maxLength: 30, nullable: true),
                     Surname = table.Column<string>(maxLength: 30, nullable: true)
@@ -75,9 +74,9 @@ namespace AquaparkApplication.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(maxLength: 30, nullable: true),
-                    MaxAmountOfPeople = table.Column<int>(nullable: false)
+                    MaxAmountOfPeople = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -89,7 +88,7 @@ namespace AquaparkApplication.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     DateOfOrder = table.Column<DateTime>(nullable: false),
                     UserDataId = table.Column<int>(nullable: true),
                     UserId = table.Column<int>(nullable: true)
@@ -116,9 +115,9 @@ namespace AquaparkApplication.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(maxLength: 30, nullable: true),
-                    MaxAmountOfPeople = table.Column<int>(nullable: false),
+                    MaxAmountOfPeople = table.Column<double>(nullable: false),
                     ZoneId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -137,7 +136,7 @@ namespace AquaparkApplication.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(maxLength: 50, nullable: true),
                     Price = table.Column<decimal>(nullable: false),
                     ZoneId = table.Column<int>(nullable: true),
@@ -169,7 +168,7 @@ namespace AquaparkApplication.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     TicketId = table.Column<int>(nullable: true),
                     PeriodicDiscountId = table.Column<int>(nullable: true),
                     SocialClassDiscountId = table.Column<int>(nullable: true),
@@ -210,7 +209,7 @@ namespace AquaparkApplication.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     AttractionId = table.Column<int>(nullable: false),
                     StartTime = table.Column<DateTime>(nullable: false),
                     FinishTime = table.Column<DateTime>(nullable: true),
@@ -238,7 +237,7 @@ namespace AquaparkApplication.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ZoneId = table.Column<int>(nullable: false),
                     StartTime = table.Column<DateTime>(nullable: false),
                     FinishTime = table.Column<DateTime>(nullable: true),
@@ -262,40 +261,149 @@ namespace AquaparkApplication.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Zones",
-                columns: new[] { "Id", "MaxAmountOfPeople", "Name" },
-                values: new object[] { 1, 35, "Strefa saun" });
+                table: "PeriodicDiscounts",
+                columns: new[] { "Id", "FinishTime", "StartTime", "Value" },
+                values: new object[] { 1, new DateTime(2019, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.80m });
+
+            migrationBuilder.InsertData(
+                table: "SocialClassDiscounts",
+                columns: new[] { "Id", "SocialClassName", "Value" },
+                values: new object[] { 1, "Emeryt 50%", 0.50m });
+
+            migrationBuilder.InsertData(
+                table: "SocialClassDiscounts",
+                columns: new[] { "Id", "SocialClassName", "Value" },
+                values: new object[] { 2, "Student 80%", 0.20m });
+
+            migrationBuilder.InsertData(
+                table: "SocialClassDiscounts",
+                columns: new[] { "Id", "SocialClassName", "Value" },
+                values: new object[] { 3, "Weteran 25%", 0.75m });
+
+            migrationBuilder.InsertData(
+                table: "SocialClassDiscounts",
+                columns: new[] { "Id", "SocialClassName", "Value" },
+                values: new object[] { 4, "Dziecko 10%", 0.90m });
+
+            migrationBuilder.InsertData(
+                table: "SocialClassDiscounts",
+                columns: new[] { "Id", "SocialClassName", "Value" },
+                values: new object[] { 5, "Normalny 100%", 0.00m });
 
             migrationBuilder.InsertData(
                 table: "Zones",
                 columns: new[] { "Id", "MaxAmountOfPeople", "Name" },
-                values: new object[] { 2, 100, "Strefa basenów" });
+                values: new object[] { 1, 35.0, "Strefa saun" });
 
             migrationBuilder.InsertData(
                 table: "Zones",
                 columns: new[] { "Id", "MaxAmountOfPeople", "Name" },
-                values: new object[] { 3, 20, "Strefa spa" });
+                values: new object[] { 2, 100.0, "Strefa basenów" });
+
+            migrationBuilder.InsertData(
+                table: "Zones",
+                columns: new[] { "Id", "MaxAmountOfPeople", "Name" },
+                values: new object[] { 3, 20.0, "Strefa spa" });
 
             migrationBuilder.InsertData(
                 table: "Attractions",
                 columns: new[] { "Id", "MaxAmountOfPeople", "Name", "ZoneId" },
-                values: new object[,]
-                {
-                    { 1, 5, "Sauna 1", 1 },
-                    { 2, 5, "Sauna 2", 1 },
-                    { 3, 5, "Sauna 3", 1 },
-                    { 4, 7, "Sauna 4", 1 },
-                    { 5, 3, "Sauna 5", 1 },
-                    { 6, 2, "Sauna 6", 1 },
-                    { 7, 8, "Sauna 7", 1 },
-                    { 8, 25, "Basen 1", 2 },
-                    { 9, 25, "Basen 2", 2 },
-                    { 10, 30, "Basen 3", 2 },
-                    { 11, 20, "Basen 4", 2 },
-                    { 12, 5, "Spa 1", 3 },
-                    { 13, 5, "Spa 2", 3 },
-                    { 14, 10, "Spa 3", 3 }
-                });
+                values: new object[] { 1, 5.0, "Sauna 1", 1 });
+
+            migrationBuilder.InsertData(
+                table: "Attractions",
+                columns: new[] { "Id", "MaxAmountOfPeople", "Name", "ZoneId" },
+                values: new object[] { 13, 5.0, "Spa 2", 3 });
+
+            migrationBuilder.InsertData(
+                table: "Attractions",
+                columns: new[] { "Id", "MaxAmountOfPeople", "Name", "ZoneId" },
+                values: new object[] { 12, 5.0, "Spa 1", 3 });
+
+            migrationBuilder.InsertData(
+                table: "Attractions",
+                columns: new[] { "Id", "MaxAmountOfPeople", "Name", "ZoneId" },
+                values: new object[] { 11, 20.0, "Basen 4", 2 });
+
+            migrationBuilder.InsertData(
+                table: "Attractions",
+                columns: new[] { "Id", "MaxAmountOfPeople", "Name", "ZoneId" },
+                values: new object[] { 10, 30.0, "Basen 3", 2 });
+
+            migrationBuilder.InsertData(
+                table: "Attractions",
+                columns: new[] { "Id", "MaxAmountOfPeople", "Name", "ZoneId" },
+                values: new object[] { 14, 10.0, "Spa 3", 3 });
+
+            migrationBuilder.InsertData(
+                table: "Attractions",
+                columns: new[] { "Id", "MaxAmountOfPeople", "Name", "ZoneId" },
+                values: new object[] { 8, 25.0, "Basen 1", 2 });
+
+            migrationBuilder.InsertData(
+                table: "Attractions",
+                columns: new[] { "Id", "MaxAmountOfPeople", "Name", "ZoneId" },
+                values: new object[] { 9, 25.0, "Basen 2", 2 });
+
+            migrationBuilder.InsertData(
+                table: "Attractions",
+                columns: new[] { "Id", "MaxAmountOfPeople", "Name", "ZoneId" },
+                values: new object[] { 7, 8.0, "Sauna 7", 1 });
+
+            migrationBuilder.InsertData(
+                table: "Attractions",
+                columns: new[] { "Id", "MaxAmountOfPeople", "Name", "ZoneId" },
+                values: new object[] { 6, 2.0, "Sauna 6", 1 });
+
+            migrationBuilder.InsertData(
+                table: "Attractions",
+                columns: new[] { "Id", "MaxAmountOfPeople", "Name", "ZoneId" },
+                values: new object[] { 5, 3.0, "Sauna 5", 1 });
+
+            migrationBuilder.InsertData(
+                table: "Attractions",
+                columns: new[] { "Id", "MaxAmountOfPeople", "Name", "ZoneId" },
+                values: new object[] { 4, 7.0, "Sauna 4", 1 });
+
+            migrationBuilder.InsertData(
+                table: "Attractions",
+                columns: new[] { "Id", "MaxAmountOfPeople", "Name", "ZoneId" },
+                values: new object[] { 3, 5.0, "Sauna 3", 1 });
+
+            migrationBuilder.InsertData(
+                table: "Attractions",
+                columns: new[] { "Id", "MaxAmountOfPeople", "Name", "ZoneId" },
+                values: new object[] { 2, 5.0, "Sauna 2", 1 });
+
+            migrationBuilder.InsertData(
+                table: "Tickets",
+                columns: new[] { "Id", "Days", "EndHour", "Months", "Name", "PeriodicDiscountId", "Price", "StartHour", "ZoneId" },
+                values: new object[] { 1, 1, 12.0, 0, "Basen - Bilet poranny 6:00-12:00", null, 30.00m, 6.0, 2 });
+
+            migrationBuilder.InsertData(
+                table: "Tickets",
+                columns: new[] { "Id", "Days", "EndHour", "Months", "Name", "PeriodicDiscountId", "Price", "StartHour", "ZoneId" },
+                values: new object[] { 2, 1, 18.0, 0, "Basen - Bilet poranny 12:00-18:00", null, 35.00m, 12.0, 2 });
+
+            migrationBuilder.InsertData(
+                table: "Tickets",
+                columns: new[] { "Id", "Days", "EndHour", "Months", "Name", "PeriodicDiscountId", "Price", "StartHour", "ZoneId" },
+                values: new object[] { 3, 1, 24.0, 0, "Basen - Bilet poranny 18:00-24:00", null, 40.00m, 18.0, 2 });
+
+            migrationBuilder.InsertData(
+                table: "Tickets",
+                columns: new[] { "Id", "Days", "EndHour", "Months", "Name", "PeriodicDiscountId", "Price", "StartHour", "ZoneId" },
+                values: new object[] { 4, 1, 24.0, 0, "Basen - Bilet całodniowy", null, 60.00m, 0.0, 2 });
+
+            migrationBuilder.InsertData(
+                table: "Tickets",
+                columns: new[] { "Id", "Days", "EndHour", "Months", "Name", "PeriodicDiscountId", "Price", "StartHour", "ZoneId" },
+                values: new object[] { 5, 1, 24.0, 0, "Sauna - Bilet całodniowy", null, 80.00m, 0.0, 1 });
+
+            migrationBuilder.InsertData(
+                table: "Tickets",
+                columns: new[] { "Id", "Days", "EndHour", "Months", "Name", "PeriodicDiscountId", "Price", "StartHour", "ZoneId" },
+                values: new object[] { 6, 1, 24.0, 0, "Spa - Bilet całodniowy", null, 200.00m, 0.0, 3 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AttractionHistories_AttractionId",

@@ -3,31 +3,27 @@ using System;
 using AquaparkApplication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AquaparkApplication.Migrations
 {
     [DbContext(typeof(AquaparkDbContext))]
-    [Migration("20190528202559_SeedTickets")]
-    partial class SeedTickets
+    [Migration("20190604200715_InitMigration")]
+    partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085");
 
             modelBuilder.Entity("AquaparkApplication.Models.Attraction", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<int>("MaxAmountOfPeople");
+                    b.Property<double>("MaxAmountOfPeople");
 
                     b.Property<string>("Name")
                         .HasMaxLength(30);
@@ -41,28 +37,27 @@ namespace AquaparkApplication.Migrations
                     b.ToTable("Attractions");
 
                     b.HasData(
-                        new { Id = 1, MaxAmountOfPeople = 5, Name = "Sauna 1", ZoneId = 1 },
-                        new { Id = 2, MaxAmountOfPeople = 5, Name = "Sauna 2", ZoneId = 1 },
-                        new { Id = 3, MaxAmountOfPeople = 5, Name = "Sauna 3", ZoneId = 1 },
-                        new { Id = 4, MaxAmountOfPeople = 7, Name = "Sauna 4", ZoneId = 1 },
-                        new { Id = 5, MaxAmountOfPeople = 3, Name = "Sauna 5", ZoneId = 1 },
-                        new { Id = 6, MaxAmountOfPeople = 2, Name = "Sauna 6", ZoneId = 1 },
-                        new { Id = 7, MaxAmountOfPeople = 8, Name = "Sauna 7", ZoneId = 1 },
-                        new { Id = 8, MaxAmountOfPeople = 25, Name = "Basen 1", ZoneId = 2 },
-                        new { Id = 9, MaxAmountOfPeople = 25, Name = "Basen 2", ZoneId = 2 },
-                        new { Id = 10, MaxAmountOfPeople = 30, Name = "Basen 3", ZoneId = 2 },
-                        new { Id = 11, MaxAmountOfPeople = 20, Name = "Basen 4", ZoneId = 2 },
-                        new { Id = 12, MaxAmountOfPeople = 5, Name = "Spa 1", ZoneId = 3 },
-                        new { Id = 13, MaxAmountOfPeople = 5, Name = "Spa 2", ZoneId = 3 },
-                        new { Id = 14, MaxAmountOfPeople = 10, Name = "Spa 3", ZoneId = 3 }
+                        new { Id = 1, MaxAmountOfPeople = 5.0, Name = "Sauna 1", ZoneId = 1 },
+                        new { Id = 2, MaxAmountOfPeople = 5.0, Name = "Sauna 2", ZoneId = 1 },
+                        new { Id = 3, MaxAmountOfPeople = 5.0, Name = "Sauna 3", ZoneId = 1 },
+                        new { Id = 4, MaxAmountOfPeople = 7.0, Name = "Sauna 4", ZoneId = 1 },
+                        new { Id = 5, MaxAmountOfPeople = 3.0, Name = "Sauna 5", ZoneId = 1 },
+                        new { Id = 6, MaxAmountOfPeople = 2.0, Name = "Sauna 6", ZoneId = 1 },
+                        new { Id = 7, MaxAmountOfPeople = 8.0, Name = "Sauna 7", ZoneId = 1 },
+                        new { Id = 8, MaxAmountOfPeople = 25.0, Name = "Basen 1", ZoneId = 2 },
+                        new { Id = 9, MaxAmountOfPeople = 25.0, Name = "Basen 2", ZoneId = 2 },
+                        new { Id = 10, MaxAmountOfPeople = 30.0, Name = "Basen 3", ZoneId = 2 },
+                        new { Id = 11, MaxAmountOfPeople = 20.0, Name = "Basen 4", ZoneId = 2 },
+                        new { Id = 12, MaxAmountOfPeople = 5.0, Name = "Spa 1", ZoneId = 3 },
+                        new { Id = 13, MaxAmountOfPeople = 5.0, Name = "Spa 2", ZoneId = 3 },
+                        new { Id = 14, MaxAmountOfPeople = 10.0, Name = "Spa 3", ZoneId = 3 }
                     );
                 });
 
             modelBuilder.Entity("AquaparkApplication.Models.AttractionHistory", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("AttractionId");
 
@@ -84,8 +79,7 @@ namespace AquaparkApplication.Migrations
             modelBuilder.Entity("AquaparkApplication.Models.Order", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateOfOrder");
 
@@ -105,8 +99,7 @@ namespace AquaparkApplication.Migrations
             modelBuilder.Entity("AquaparkApplication.Models.PeriodicDiscount", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("FinishTime");
 
@@ -126,8 +119,7 @@ namespace AquaparkApplication.Migrations
             modelBuilder.Entity("AquaparkApplication.Models.Position", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("CanBeUsed");
 
@@ -155,8 +147,7 @@ namespace AquaparkApplication.Migrations
             modelBuilder.Entity("AquaparkApplication.Models.SocialClassDiscount", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("SocialClassName")
                         .HasMaxLength(30);
@@ -179,8 +170,7 @@ namespace AquaparkApplication.Migrations
             modelBuilder.Entity("AquaparkApplication.Models.Ticket", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("Days");
 
@@ -220,8 +210,7 @@ namespace AquaparkApplication.Migrations
             modelBuilder.Entity("AquaparkApplication.Models.User", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Email")
                         .HasMaxLength(30);
@@ -247,8 +236,7 @@ namespace AquaparkApplication.Migrations
             modelBuilder.Entity("AquaparkApplication.Models.UserData", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Email")
                         .HasMaxLength(30);
@@ -267,10 +255,9 @@ namespace AquaparkApplication.Migrations
             modelBuilder.Entity("AquaparkApplication.Models.Zone", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<int>("MaxAmountOfPeople");
+                    b.Property<double>("MaxAmountOfPeople");
 
                     b.Property<string>("Name")
                         .HasMaxLength(30);
@@ -280,17 +267,16 @@ namespace AquaparkApplication.Migrations
                     b.ToTable("Zones");
 
                     b.HasData(
-                        new { Id = 1, MaxAmountOfPeople = 35, Name = "Strefa saun" },
-                        new { Id = 2, MaxAmountOfPeople = 100, Name = "Strefa basenów" },
-                        new { Id = 3, MaxAmountOfPeople = 20, Name = "Strefa spa" }
+                        new { Id = 1, MaxAmountOfPeople = 35.0, Name = "Strefa saun" },
+                        new { Id = 2, MaxAmountOfPeople = 100.0, Name = "Strefa basenów" },
+                        new { Id = 3, MaxAmountOfPeople = 20.0, Name = "Strefa spa" }
                     );
                 });
 
             modelBuilder.Entity("AquaparkApplication.Models.ZoneHistory", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime?>("FinishTime");
 

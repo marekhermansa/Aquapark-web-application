@@ -261,14 +261,16 @@ namespace AquaparkApplication
             });
         }
     }
-    public class AquaparkDbContextDbFactory : IDesignTimeDbContextFactory<AquaparkDbContext>
-    {
-        AquaparkDbContext IDesignTimeDbContextFactory<AquaparkDbContext>.CreateDbContext(string[] args)
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<AquaparkDbContext>();
-            optionsBuilder.UseSqlServer<AquaparkDbContext>("Server = (localdb)\\mssqllocaldb; Database = Aquapark; Trusted_Connection = True; MultipleActiveResultSets = true");
+    //public class AquaparkDbContextDbFactory : IDesignTimeDbContextFactory<AquaparkDbContext>
+    //{
+    //    AquaparkDbContext IDesignTimeDbContextFactory<AquaparkDbContext>.CreateDbContext(string[] args)
+    //    {
+    //        var optionsBuilder = new DbContextOptionsBuilder<AquaparkDbContext>();
+    //        //optionsBuilder.UseSqlServer<AquaparkDbContext>("Server = (localdb)\\mssqllocaldb; Database = Aquapark; Trusted_Connection = True; MultipleActiveResultSets = true");
+    //        //optionsBuilder.UseSqlServer<AquaparkDbContext>("Server=localhost\\SQLEXPRESS;Database=Aquapark;Trusted_Connection=True;MultipleActiveResultSets = true;");
+    //        optionsBuilder.UseSqlite("Data source=Aquapark.db");
 
-            return new AquaparkDbContext(optionsBuilder.Options);
-        }
-    }
+    //        return new AquaparkDbContext(optionsBuilder.Options);
+    //    }
+    //}
 }
