@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using AquaparkApplication.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Cors.Internal;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,30 +30,37 @@ namespace AquaparkApplication
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            //services.AddCors();
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowMyOrigin",
+            //        builder => builder.AllowAnyHeader());
+            //});
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowMyOrigin",
-                    builder => builder.AllowAnyOrigin());
-            });
-            services.Configure<MvcOptions>(options =>
-            {
-                options.Filters.Add(new CorsAuthorizationFilterFactory("AllowMyOrigin"));
-            });
+            services.AddCors(options => options.AddPolicy("AllowMyOrigin", p => p.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()));
+
+
+
+            //services.Configure<MvcOptions>(options =>
+            //{
+            //    options.Filters.Add(new CorsAuthorizationFilterFactory("AllowMyOrigin"));
+            //});
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             
             services.AddEntityFrameworkSqlite().AddDbContext<AquaparkDbContext>(options =>
                 options.UseSqlite(Configuration["ConnectionStrings:DefaultConnection"]));
-            //services.AddDbContext<AquaparkDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
+
+            app.UseCors("AllowMyOrigin");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -69,9 +71,8 @@ namespace AquaparkApplication
                 app.UseHsts();
             }
 
+            //app.UseCors();
 
-            app.UseCors("AllowMyOrigin");
-            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseMvc(routes =>

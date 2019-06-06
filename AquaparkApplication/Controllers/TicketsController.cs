@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AquaparkApplication.Controllers
 {
-    [EnableCors("AllowMyOrigin")]
+     [EnableCors("AllowMyOrigin")]
     public class TicketsController : Controller
     {
         private AquaparkDbContext _dbContext;
