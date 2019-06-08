@@ -30,13 +30,13 @@ namespace AquaparkApplication.Controllers
                 //var PDF = Renderer.RenderHtmlAsPdf("<h1>Korwin król</h1>");
                  var PDF = Renderer.RenderHtmlAsPdf("<img src='theonlyking.png'>", Environment.CurrentDirectory + "\\wwwroot\\");
                 PDF.SaveAs("currentOccupancy.pdf");
+                string pdfInBase64 = Convert.ToBase64String(System.IO.File.ReadAllBytes("currentOccupancy.pdf"));
 
-                
                 return new PdfReportDto()
                 {
                     Success = true,
                     Status = "",
-                    PdfData = System.IO.File.ReadAllBytes("currentOccupancy.pdf")
+                    PdfData = pdfInBase64
                 };
             }
             catch (Exception e)

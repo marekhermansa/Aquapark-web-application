@@ -4,6 +4,6 @@
     {
         public string Status { get; set; }
         public bool Success { get; set; }
-        public byte[] PdfData { get; set; }
+        public string PdfData { get; set; }
     }
 }
