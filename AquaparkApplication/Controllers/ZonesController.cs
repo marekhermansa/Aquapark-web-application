@@ -82,9 +82,12 @@ namespace AquaparkApplication.Controllers
                                 // remove periodic discount 
                                 periodicDiscounts.ToList().ForEach(p=>
                                 {
-                                    if(p.Id == t.PeriodicDiscount.Id)
+                                    if (t.PeriodicDiscount != null)
                                     {
-                                        periodicDiscountsToRemove.Add(p);
+                                        if (p.Id == t.PeriodicDiscount.Id)
+                                        {
+                                            periodicDiscountsToRemove.Add(p);
+                                        }
                                     }
                                 });
                             }
