@@ -4,7 +4,9 @@ using System.Linq;
 using AquaparkApplication.Models;
 using AquaparkApplication.Models.Dtos;
 using AquaparkSystemApi.Exceptions;
+using AquaparkSystemApi.Models.Dtos;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AquaparkApplication.Controllers
@@ -37,60 +39,83 @@ namespace AquaparkApplication.Controllers
                         throw new UserNotFoundException("There is no user with given data.");
                     }
 
-                    //_dbContext.Positions.ToList().ForEach(x => x.SocialClassDiscount = null);
+                    // remove scd
 
-                    //_dbContext.SaveChanges();
+                    var dbSocialClassDiscounts = _dbContext.SocialClassDiscounts;
+                    var dbPositions = _dbContext.Positions.Include(p => p.SocialClassDiscount);
 
-                    //_dbContext.SocialClassDiscounts.RemoveRange(_dbContext.SocialClassDiscounts);
-                    //_dbContext.SocialClassDiscounts.AddRange(socialClassDiscounts);
-                    //_dbContext.SaveChanges();
+                    var socialClassDiscountsToRemove = new List<SocialClassDiscount>();
+                    var positionsToUpdate = new List<Position>();
 
-                    //==================
-
-                    // remove
-                    var discountsToRemove = new List<SocialClassDiscount>();
-                    _dbContext.SocialClassDiscounts.ToList().ForEach(s =>
-                    {
-                        if (socialClassDiscounts.ToList().SingleOrDefault(x => x.Id == s.Id) == null)
+                    dbSocialClassDiscounts.ToList()
+                        .ForEach(s =>
                         {
-                            discountsToRemove.Add(s);
+                            var dbSocialClassDiscountId = s.Id;
 
-                            var position = _dbContext.Positions.ToList().SingleOrDefault(x => x.Id == s.Id);
-                            if (position != null)
+                            var matchedDiscounts = socialClassDiscounts
+                           .ToList()
+                           .SingleOrDefault(d => d.Id == dbSocialClassDiscountId);
+
+                            if (matchedDiscounts == null)
                             {
-                                position.SocialClassDiscount = null;
-                                _dbContext.SaveChanges();
+                                socialClassDiscountsToRemove.Add(s);
+
+                                // make ticket id null in postiions table
+                                var pToUpdate = dbPositions.Where(p => p.SocialClassDiscount.Id == s.Id).ToList();
+                                pToUpdate.ForEach(p =>
+                                {
+                                    p.SocialClassDiscount = null;
+                                    positionsToUpdate.Add(p);
+                                });
                             }
-                        }
-                    });
-                    _dbContext.SocialClassDiscounts.RemoveRange(discountsToRemove);
+                        });
 
-
-
+                    _dbContext.UpdateRange(positionsToUpdate);
                     _dbContext.SaveChanges();
 
-                    var discountsToAdd = new List<SocialClassDiscount>();
-                    socialClassDiscountCollectionDto.SocialClassDiscounts.ToList().ForEach(s =>
-                    {
-                        // add
-                        if (_dbContext.SocialClassDiscounts.ToList().SingleOrDefault(x => x.Id == s.Id) == null)
+                    _dbContext.RemoveRange(socialClassDiscountsToRemove);
+                    _dbContext.SaveChanges();
+
+                    // add scd
+
+                    socialClassDiscounts
+                        .ToList()
+                        .ForEach(s =>
                         {
-                            discountsToAdd.Add(s);
-                        }
-                        // modify
-                        else
-                        {
-                            var discount = _dbContext.SocialClassDiscounts.SingleOrDefault(x => x.Id == s.Id);
-                            if (discount != null)
+                            var matchedDiscounts = dbSocialClassDiscounts.ToList()
+                                .SingleOrDefault(d => d.Id == s.Id);
+                            if (matchedDiscounts == null)
                             {
-                                discount.Id = s.Id;
-                                discount.SocialClassName = s.SocialClassName;
-                                discount.Value = s.Value;
-                                _dbContext.SaveChanges();
+                                var newsocialClassDiscount = new SocialClassDiscount();
+
+                                var newDiscount = new SocialClassDiscount()
+                                {
+                                    Id = s.Id,
+                                    Value = s.Value,
+                                    SocialClassName = s.SocialClassName
+                                };
+                                _dbContext.SocialClassDiscounts.Add(newDiscount);
                             }
-                        }
-                    });
-                    _dbContext.SocialClassDiscounts.AddRange(discountsToAdd);
+                        });
+                    _dbContext.SaveChanges();
+
+                    // update scd
+
+                    socialClassDiscounts
+                        .ToList()
+                        .ForEach(s =>
+                        {
+                            var matchedDiscount = dbSocialClassDiscounts.ToList()
+                                .SingleOrDefault(d => d.Id == s.Id);
+                            if (matchedDiscount != null)
+                            {
+                                matchedDiscount.Id = s.Id;
+                                matchedDiscount.Value = s.Value;
+                                matchedDiscount.SocialClassName = s.SocialClassName;
+
+                                _dbContext.SocialClassDiscounts.Update(matchedDiscount);
+                            }
+                        });
                     _dbContext.SaveChanges();
                 }
                 else
@@ -137,7 +162,7 @@ namespace AquaparkApplication.Controllers
                     throw new Exception("User identification failed.");
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return this.GetAllPeriodicDiscount();
             }

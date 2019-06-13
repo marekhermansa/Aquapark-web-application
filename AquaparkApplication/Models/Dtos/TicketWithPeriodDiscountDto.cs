@@ -1,4 +1,6 @@
-﻿namespace AquaparkApplication.Models.Dtos
+﻿using AquaparkSystemApi.Models.Dtos;
+
+namespace AquaparkApplication.Models.Dtos
 {
     public class TicketWithPeriodDiscountDto
     {
