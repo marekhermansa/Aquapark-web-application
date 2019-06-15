@@ -142,7 +142,7 @@ namespace AquaparkApplication.Controllers
 
         [AcceptVerbs("GET")]
         [ActionName("GetSelectedOccupancy")]
-        public PdfReportDto GetSelectedOccupancy([FromBody]TimespanDto timespanDto)
+        public PdfReportDto GetSelectedOccupancy(TimespanDto timespanDto)
         {
             //https://quickchart.io/
 
