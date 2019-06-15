@@ -69,7 +69,7 @@ namespace AquaparkApplication.Controllers
                         Count = group.Count()
                     }).ToList();
 
-                var zones = t.Select(x => UppercaseWords(zoneNames.SingleOrDefault(z => z.Id == x.Zone).Name).Replace(" ", "")).ToList();
+                var zones = t.Select(x => UppercaseWords(zoneNames.SingleOrDefault(z => z.Id == x.Zone).Name)).ToList();
                 var counts = t.Select(x => x.Count);
                 var sum = counts.Sum();
                 var parts = counts.Select(x => (100.0 * x / sum).ToString("0.0")).ToList();
