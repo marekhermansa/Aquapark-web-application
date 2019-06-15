@@ -79,7 +79,7 @@ namespace AquaparkApplication.Controllers
                 var url = String.Format("https://chart.googleapis.com/chart?cht=p3&chs=450x150&chd=t:{0}&chl={1}", countStr, zoneStr);
 
                 var detailList = t.Select(x => String.Format("{0}: {3}% ({1} {2})",
-                    UppercaseWords(zoneNames.SingleOrDefault(z => z.Id == x.Zone).Name).Replace(" ", ""),
+                    UppercaseWords(zoneNames.SingleOrDefault(z => z.Id == x.Zone).Name),
                     x.Count,
                     x.Count == 1 ? "osoba" : (x.Count > 4 ? "osób" : "osoby"),
                     (100.0 * x.Count / sum).ToString("0.0")));
